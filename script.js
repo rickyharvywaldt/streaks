@@ -1,6 +1,6 @@
 let i = 0;
 
-while (i < 364) {
+while (i < 371) {
   const para = document.createElement("div");
   const tooltip = document.createElement("span");
   const tooltipText = document.createTextNode("No activity on February 14th.");
