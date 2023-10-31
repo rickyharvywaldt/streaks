@@ -20,6 +20,7 @@ body {
   width: 500px;
   overflow: scroll;
   margin: auto;
+  padding-left: 80px;
 }
 
 .wrapper {
@@ -73,6 +74,22 @@ body {
   margin-right: -10px;
 }
 
+.days {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: -20px;
+  left: -40px;
+}
+
+.days p:nth-child(2) {
+  margin-top: -1px;
+}
+
+.days p:nth-child(3) {
+  margin-top: -1px;
+}
+
 .mystyle {
   position: relative;
   display: flex;
@@ -87,12 +104,12 @@ body {
   cursor: pointer;
 }
 
-.mystyle:nth-child(n + 361) {
+.mystyle:nth-child(n + 362) {
   background-color: #fff;
   cursor: default;
 }
 
-.mystyle:nth-child(n + 361):hover .tooltip-text {
+.mystyle:nth-child(n + 362):hover .tooltip-text {
   visibility: hidden;
 }
 

@@ -57,7 +57,7 @@ btn.addEventListener("click", () => {
   tooltips.forEach((tooltip) => {
     tooltip.textContent = dateTxt;
   });
-  const days = document.querySelectorAll(".mystyle:not(:nth-child(n + 361))");
+  const days = document.querySelectorAll(".mystyle:not(:nth-child(n + 362))");
   days.forEach((day) => {
     if (c < 5) {
       day.style.backgroundColor = colors.a;
