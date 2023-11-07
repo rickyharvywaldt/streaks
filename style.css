@@ -105,12 +105,12 @@ body {
   cursor: pointer;
 }
 
-.mystyle:nth-child(n + 362) {
+.mystyle:nth-child(n + 369) {
   background-color: #fff;
   cursor: default;
 }
 
-.mystyle:nth-child(n + 362):hover .tooltip-text {
+.mystyle:nth-child(n + 369):hover .tooltip-text {
   visibility: hidden;
 }
 

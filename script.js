@@ -1,28 +1,30 @@
-const btn = document.querySelector(".btn");
 let c = 0;
-
-const month = new Date().toLocaleString("default", { month: "long" });
-const d = new Date().toString().slice(8, 10);
-const nthNumber = (number) => {
-  if (number > 3 && number < 21) return "th";
-  switch (number % 10) {
-    case 1:
-      return "st";
-    case 2:
-      return "nd";
-    case 3:
-      return "rd";
-    default:
-      return "th";
-  }
-};
-const dateTxt = `${c} activity on ${month} ${d}${nthNumber(d)}`;
-console.log(dateTxt);
 
 const createDiv = () => {
   let i = 0;
+  const startDate = new Date(2024, 0, 1); // January is 0 in JavaScript Date
 
-  while (i < 371) {
+  while (i < 366) {
+    const currentDate = new Date(startDate);
+    currentDate.setDate(startDate.getDate() + i);
+
+    const month = currentDate.toLocaleString("default", { month: "long" });
+    const d = currentDate.getDate();
+    const nthNumber = (number) => {
+      if (number > 3 && number < 21) return "th";
+      switch (number % 10) {
+        case 1:
+          return "st";
+        case 2:
+          return "nd";
+        case 3:
+          return "rd";
+        default:
+          return "th";
+      }
+    };
+    const dateTxt = `${c} activity on ${month} ${d}${nthNumber(d)}`;
+
     const para = document.createElement("div");
     const tooltip = document.createElement("span");
     const tooltipText = document.createTextNode(dateTxt);
@@ -47,31 +49,49 @@ const colors = {
   d: "#22c55e",
 };
 
+const btn = document.querySelector(".btn");
 btn.addEventListener("click", () => {
   c++;
-  const dateTxt =
-    c <= 1
-      ? `${c} activity on ${month} ${d}${nthNumber(d)}`
-      : `${c} activities on ${month} ${d}${nthNumber(d)}`;
-  const tooltips = document.querySelectorAll(".tooltip-text");
-  tooltips.forEach((tooltip) => {
-    tooltip.textContent = dateTxt;
-  });
-  const days = document.querySelectorAll(".mystyle:not(:nth-child(n + 362))");
-  days.forEach((day) => {
-    if (c < 5) {
-      day.style.backgroundColor = colors.a;
-    }
-    if (c >= 5 && c < 10) {
-      day.style.backgroundColor = colors.b;
-    }
-    if (c >= 10 && c < 15) {
-      day.style.backgroundColor = colors.c;
-    }
-    if (c >= 15) {
-      day.style.backgroundColor = colors.d;
-    }
-  });
-
-  console.log(dateTxt);
+  updateDivs();
 });
+
+function updateDivs() {
+  const divs = document.querySelectorAll(".mystyle");
+  divs.forEach((div) => {
+    const tooltip = div.querySelector("span");
+    const dateText = tooltip.textContent;
+    const dateParts = dateText.split(" ");
+    const month = dateParts[3];
+    const d = parseInt(dateParts[4].slice(0, -2));
+    const currentNthNumber = nthNumber(d);
+    const updatedDateTxt =
+      c <= 1
+        ? `${c} activity on ${month} ${d}${currentNthNumber}`
+        : `${c} activities on ${month} ${d}${currentNthNumber}`;
+    tooltip.textContent = updatedDateTxt;
+
+    if (c < 5) {
+      div.style.backgroundColor = colors.a;
+    } else if (c >= 5 && c < 10) {
+      div.style.backgroundColor = colors.b;
+    } else if (c >= 10 && c < 15) {
+      div.style.backgroundColor = colors.c;
+    } else {
+      div.style.backgroundColor = colors.d;
+    }
+  });
+}
+
+function nthNumber(number) {
+  if (number > 3 && number < 21) return "th";
+  switch (number % 10) {
+    case 1:
+      return "st";
+    case 2:
+      return "nd";
+    case 3:
+      return "rd";
+    default:
+      return "th";
+  }
+}
